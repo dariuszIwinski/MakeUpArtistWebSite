@@ -1,0 +1,40 @@
+﻿/*ogólne*/
+
+/*navig main*/
+.navbar-inverse {
+    margin-bottom: 0px;
+}
+
+/*navig blog*/
+.blogNav {
+    text-align: center;
+    background: rgba(179,142,80, 0.8);
+}
+
+    .blogNav ul li {
+        color: black;
+        padding: 1%;
+        width: 20%;
+        font-family: 'Comfortaa-Bold';
+        font-size: 1.2em;
+    }
+
+        .blogNav ul li:hover {
+            color: white;
+        }
+
+@font-face {
+    font-family: 'Comfortaa-Bold';
+    src: url('../fonts/Comfortaa-Bold.ttf') format('truetype');
+}
+
+/*panels*/
+.panel-default {
+    background-color: rgba(255,255,255, 0.6);
+}
+.panel-blog{
+   
+    padding: 0px;
+    margin: 0px;
+    border: none;
+}

@@ -1,0 +1,33 @@
+﻿/*navigation*/
+.navbar-nav {
+    margin: 0 auto;
+    display: table;
+    table-layout: fixed;
+    float: none;
+}
+
+/*.navbar-inverse .navbar-nav > li > a:hover {
+    background-color: transparent;
+}*/
+
+.navbar-inverse .navbar-nav > li {
+    margin: 0 50px;
+    font-size: 1.5em;
+    color: red;
+}
+
+    .navbar-inverse .navbar-nav > li > a:hover {
+        color: red;
+    }
+
+
+.navbar-inverse {
+    background-color: rgba(0,0,0,0.8);
+    border-color: rgba(179,142,80,0.8);
+    border-radius: 0;
+}
+
+@font-face {
+    font-family: 'Comfortaa-Bold';
+    src: url('../fonts/Comfortaa-Bold.ttf') format('truetype');
+}

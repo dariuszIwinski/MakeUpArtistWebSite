@@ -1,0 +1,53 @@
+﻿.stopfade {
+    opacity: .5;
+}
+.opac {
+    background-color: rgba(0,0,0,0.6);
+    color: white;
+}
+
+.noback {
+    background-color: transparent;
+}
+
+/*nagłówki*/
+.h1, .h2, .h3, .h4, .h5, .h6 {
+    color: rgb(179,142,80);
+    text-align:center;
+}
+
+/*Czcionki*/
+@font-face {
+    font-family: Sensation;
+    src: url('/fonts/SweetSensation.ttf');
+}
+@font-face {
+    font-family: 'NoemieScript';
+    src: url('../fonts/NoemieScript.otf') format('opentype');
+}
+
+
+
+/*Contact*/
+#contact {
+    background: #333333;
+    color: #f4f4f4;
+    padding-bottom: 80px;
+}
+
+.contact
+{
+    font-size: 1.5rem;
+}
+.contact a
+{
+    text-decoration: none;
+    color: white;
+}
+
+.btn-default {
+    background-color: rgba(179,142,80,0.8);
+    border-color: rgba(179,142,80,0.8);
+    color: white;
+    font: bold;
+}

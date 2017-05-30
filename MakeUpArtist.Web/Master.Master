@@ -1,0 +1,88 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="Master.master.cs" Inherits="MakeUpArtist.Web.Master" %>
+
+<!DOCTYPE html>
+
+<html>
+<head runat="server">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <%-- scripts --%>
+    <script src="scripts/external/jquery/jquery-2.0.3.min.js"></script>
+    <script src="scripts/external/bootstrap/bootstrap.min.js"></script>
+
+    <%-- styles --%>
+    <link href="content/css/external/bootstrap/bootstrap.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css" />
+    <link href="content/css/background.css" rel="stylesheet" />
+    <link href="content/css/logo.css" rel="stylesheet" />
+    <link href="content/css/glyphicons.css" rel="stylesheet" />
+    <link href="content/css/modals.css" rel="stylesheet" />
+    <link href="content/css/navigation.css" rel="stylesheet" />
+    <link href="content/css/general.css" rel="stylesheet" />
+
+    <%-- WebSite Title --%>
+    <title>Nancy's style</title>
+
+    <asp:ContentPlaceHolder ID="head" runat="server">
+    </asp:ContentPlaceHolder>
+</head>
+<body>
+    <%-- Background video --%>
+    <video poster="/img/bkg_photo.jpg" id="bgvid" playsinline autoplay muted>
+        <%--<source src="http://thenewcode.com/assets/videos/polina.webm" type="video/webm" />
+        <source src="http://thenewcode.com/assets/videos/polina.mp4" type="video/mp4" />--%>
+        <source src="/img/bkg_video.mp4" type="video/mp4" />
+    </video>
+    <%-- Logo --%>
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-4 col-xs-offset-4">
+                <div class="">
+                    <img class="img-responsive" src="img/logoMediumBlack.png" />
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <%-- Navigation --%>
+    <nav class="navbar navbar-inverse transparent">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-target=".navbar-collapse" data-toggle="collapse">
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+        </div>
+        <div class="navbar-collapse collapse">
+            <ul class="nav navbar-nav">
+                <li><a href="default.aspx">Nancy's style</a></li>
+                <li><a href="offer.aspx">Oferta</a></li>
+                <li><a href="contact.aspx">Kontakt</a></li>
+                <li><a href="inspirations.aspx">Inspiracje</a></li>
+                <li style="position:fixed;float: right;padding-top: 1%;padding-left: 60%;">
+                    <a href="#" style="display: inline; margin: 0; padding: 5px;">
+                        <span class="fa fa-facebook" style=""></span>
+                    </a>
+                    <a href="#" style="display: inline; margin: 0; padding: 5px;">
+                        <span class="fa fa-instagram" style=";"></span>
+                    </a>
+                    <a href="#" style="display: inline; margin: 0; padding: 5px;">
+                        <span class="fa fa-youtube-play" style=""></span>
+                    </a>
+                    <a href="#" style="display: inline; margin: 0; padding: 5px;">
+                        <span class="fa fa-pinterest-square" style=""></span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+    <form id="form1" runat="server">
+
+        <div>
+            <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server">
+            </asp:ContentPlaceHolder>
+        </div>
+    </form>
+</body>
+</html>

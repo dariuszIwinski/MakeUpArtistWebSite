@@ -1,0 +1,9 @@
+﻿.modal-header, .modal-body, .modal-footer, .modal-content {
+    background-color: rgba(0,0,0,0.6);
+    color: white;
+}
+
+.modal-border {
+    border-color: rgba(179,142,80,0.9);
+    border: 3px;
+}
