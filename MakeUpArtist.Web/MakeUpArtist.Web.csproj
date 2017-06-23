@@ -14,7 +14,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>MakeUpArtist.Web</RootNamespace>
     <AssemblyName>MakeUpArtist.Web</AssemblyName>
-    <TargetFrameworkVersion>v4.6.2</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <UseIISExpress>true</UseIISExpress>
     <IISExpressSSLPort />
     <IISExpressAnonymousAuthentication />
@@ -23,6 +23,7 @@
     <UseGlobalApplicationHostFile />
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -43,52 +44,60 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.CodeDom.Providers.DotNetCompilerPlatform, Version=1.0.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.3\lib\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Data.Linq" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.ApplicationServices" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System" />
     <Reference Include="System.Data" />
-    <Reference Include="System.Core" />
-    <Reference Include="System.Data.DataSetExtensions" />
-    <Reference Include="System.Web.Extensions" />
-    <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Web" />
+    <Reference Include="System.Web.Extensions" />
     <Reference Include="System.Xml" />
     <Reference Include="System.Configuration" />
     <Reference Include="System.Web.Services" />
     <Reference Include="System.EnterpriseServices" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="contact.aspx" />
     <Content Include="content\css\background.css" />
     <Content Include="content\css\blog.css" />
     <Content Include="content\css\blogContent.css" />
+    <Content Include="content\css\contact.css" />
+    <Content Include="content\css\default.css" />
     <Content Include="content\css\external\bootstrap\bootstrap-theme.css" />
     <Content Include="content\css\external\bootstrap\bootstrap-theme.min.css" />
     <Content Include="content\css\external\bootstrap\bootstrap.css" />
     <Content Include="content\css\external\bootstrap\bootstrap.min.css" />
     <Content Include="content\css\glyphicons.css" />
     <Content Include="content\css\general.css" />
-    <Content Include="contact.aspx" />
     <Content Include="content\css\external\prettify.css" />
     <Content Include="content\css\logo.css" />
     <Content Include="content\css\modals.css" />
     <Content Include="content\css\navigation.css" />
     <Content Include="content\css\panels.css" />
+    <Content Include="default.aspx" />
     <Content Include="img\bkg_photo.jpg" />
     <Content Include="img\candice.jpg" />
     <Content Include="img\logoMedium.png" />
     <Content Include="img\logoMediumBlack.png" />
-    <Content Include="offer.aspx" />
-    <Content Include="default.aspx" />
+    <Content Include="img\logo_nav.png" />
     <Content Include="content\glyphicons\glyphicons-halflings-regular.svg" />
     <Content Include="img\polina.jpg" />
+    <Content Include="offer.aspx" />
     <Content Include="packages.config" />
     <Content Include="content\glyphicons\glyphicons-halflings-regular.woff2" />
     <Content Include="content\glyphicons\glyphicons-halflings-regular.woff" />
@@ -100,22 +109,13 @@
     <Content Include="content\css\external\bootstrap\bootstrap-theme.css.map" />
     <Content Include="content\fonts\SweetSensation.ttf" />
     <Content Include="Master.Master" />
-    <Content Include="WebForm3.aspx" />
-    <Content Include="WebForm4.aspx" />
-    <Content Include="MakeUpDataClasses.dbml">
-      <Generator>MSLinqToSQLGenerator</Generator>
-      <LastGenOutput>MakeUpDataClasses.designer.cs</LastGenOutput>
-      <SubType>Designer</SubType>
-    </Content>
+    <Content Include="inspirations.aspx" />
     <Content Include="img\bkg_video.mp4" />
     <Content Include="content\fonts\ClickerScript-Regular.ttf" />
     <Content Include="content\fonts\NoemieScript.otf" />
     <Content Include="content\fonts\Comfortaa-Bold.ttf" />
     <Content Include="content\fonts\Comfortaa-Light.ttf" />
     <Content Include="content\fonts\Comfortaa-Regular.ttf" />
-    <None Include="MakeUpDataClasses.dbml.layout">
-      <DependentUpon>MakeUpDataClasses.dbml</DependentUpon>
-    </None>
     <None Include="scripts\external\jquery\jquery-2.0.3.intellisense.js" />
     <Content Include="scripts\external\jquery\jquery-2.0.3.js" />
     <Content Include="scripts\external\jquery\jquery-2.0.3.min.js" />
@@ -195,8 +195,7 @@
     <Content Include="scripts\external\tinymce\themes\inlite\theme.min.js" />
     <Content Include="scripts\external\tinymce\themes\modern\theme.min.js" />
     <Content Include="scripts\external\tinymce\tinymce.min.js" />
-    <Content Include="WebForm1.aspx" />
-    <Content Include="WebForm2.aspx" />
+    <Content Include="writer.aspx" />
     <None Include="Properties\PublishProfiles\MakeUp - Web Deploy.pubxml" />
     <Content Include="scripts\external\bootstrap\bootstrap.js" />
     <Content Include="scripts\external\bootstrap\bootstrap.min.js" />
@@ -227,10 +226,12 @@
     <Compile Include="contact.aspx.designer.cs">
       <DependentUpon>contact.aspx</DependentUpon>
     </Compile>
-    <Compile Include="MakeUpDataClasses.designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>MakeUpDataClasses.dbml</DependentUpon>
+    <Compile Include="default.aspx.cs">
+      <DependentUpon>default.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="default.aspx.designer.cs">
+      <DependentUpon>default.aspx</DependentUpon>
     </Compile>
     <Compile Include="Master.Master.cs">
       <DependentUpon>Master.Master</DependentUpon>
@@ -246,41 +247,20 @@
     <Compile Include="offer.aspx.designer.cs">
       <DependentUpon>offer.aspx</DependentUpon>
     </Compile>
-    <Compile Include="default.aspx.cs">
-      <DependentUpon>default.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="default.aspx.designer.cs">
-      <DependentUpon>default.aspx</DependentUpon>
-    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="WebForm1.aspx.cs">
-      <DependentUpon>WebForm1.aspx</DependentUpon>
+    <Compile Include="writer.aspx.cs">
+      <DependentUpon>writer.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="WebForm1.aspx.designer.cs">
-      <DependentUpon>WebForm1.aspx</DependentUpon>
+    <Compile Include="writer.aspx.designer.cs">
+      <DependentUpon>writer.aspx</DependentUpon>
     </Compile>
-    <Compile Include="WebForm2.aspx.cs">
-      <DependentUpon>WebForm2.aspx</DependentUpon>
+    <Compile Include="inspirations.aspx.cs">
+      <DependentUpon>inspirations.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="WebForm2.aspx.designer.cs">
-      <DependentUpon>WebForm2.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="WebForm3.aspx.cs">
-      <DependentUpon>WebForm3.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="WebForm3.aspx.designer.cs">
-      <DependentUpon>WebForm3.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="WebForm4.aspx.cs">
-      <DependentUpon>WebForm4.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="WebForm4.aspx.designer.cs">
-      <DependentUpon>WebForm4.aspx</DependentUpon>
+    <Compile Include="inspirations.aspx.designer.cs">
+      <DependentUpon>inspirations.aspx</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>

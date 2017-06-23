@@ -19,7 +19,7 @@
     <link href="content/css/modals.css" rel="stylesheet" />
     <link href="content/css/navigation.css" rel="stylesheet" />
     <link href="content/css/general.css" rel="stylesheet" />
-
+    <link href="https://fonts.googleapis.com/css?family=Pacifico" rel="stylesheet">
     <%-- WebSite Title --%>
     <title>Nancy's style</title>
 
@@ -46,35 +46,34 @@
     </div>
     <%-- Navigation --%>
     <nav class="navbar navbar-inverse transparent">
-        <div class="navbar-header">
-            <button type="button" class="navbar-toggle" data-target=".navbar-collapse" data-toggle="collapse">
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-            </button>
-        </div>
-        <div class="navbar-collapse collapse">
-            <ul class="nav navbar-nav">
-                <li><a href="default.aspx">Nancy's style</a></li>
-                <li><a href="offer.aspx">Oferta</a></li>
-                <li><a href="contact.aspx">Kontakt</a></li>
-                <li><a href="inspirations.aspx">Inspiracje</a></li>
-                <li style="position:fixed;float: right;padding-top: 1%;padding-left: 60%;">
-                    <a href="#" style="display: inline; margin: 0; padding: 5px;">
-                        <span class="fa fa-facebook" style=""></span>
-                    </a>
-                    <a href="#" style="display: inline; margin: 0; padding: 5px;">
-                        <span class="fa fa-instagram" style=";"></span>
-                    </a>
-                    <a href="#" style="display: inline; margin: 0; padding: 5px;">
-                        <span class="fa fa-youtube-play" style=""></span>
-                    </a>
-                    <a href="#" style="display: inline; margin: 0; padding: 5px;">
-                        <span class="fa fa-pinterest-square" style=""></span>
-                    </a>
-                </li>
-            </ul>
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-target=".navbar-collapse" data-toggle="collapse">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="#">
+                    Make by<br /> Nancy
+                    <%--<img style="max-width: 100px; margin-top: -12px;" class=" img-responsive" src="img/logo_nav.png" />--%>
+                </a>
+            </div>
+
+            <div class="navbar-collapse collapse">
+                <ul class="nav navbar-nav general">
+                    <li><a href="default.aspx">Nancy's style</a></li>
+                    <li><a href="offer.aspx">Oferta</a></li>
+                    <li><a href="contact.aspx">Kontakt</a></li>
+                    <li><a href="inspirations.aspx">Inspiracje</a></li>
+                </ul>
+                <ul class="nav navbar-nav navbar-right social">
+                    <li><a href="https://www.facebook.com/makebynancy/"><span class="fa fa-facebook"></span></a></li>
+                    <li><a href="https://www.instagram.com/makebynancy/"><span class="fa fa-instagram"></span></a></li>
+                    <li><a href="https://www.youtube.com/channel/UCiRCiASBgcyVjKP9XRWupYw"><span class="fa fa-youtube-play"></span></a></li>
+                    <li><a href="https://pl.pinterest.com/makebynancy/"><span class="fa fa-pinterest-square"></span></a></li>
+                </ul>
+            </div>
         </div>
     </nav>
     <form id="form1" runat="server">

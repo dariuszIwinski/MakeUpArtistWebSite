@@ -9,7 +9,7 @@ using System.Web.UI.WebControls;
 
 namespace MakeUpArtist.Web
 {
-    public partial class WebForm1 : System.Web.UI.Page
+    public partial class writer : System.Web.UI.Page
     {
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -17,16 +17,17 @@ namespace MakeUpArtist.Web
             txtTitle.ForeColor = System.Drawing.Color.Black;
         }
 
-        protected void Button1_Click(object sender, EventArgs e)
+        protected void btnSend_Click(object sender, EventArgs e)
         {
-            
+            string msg = txtBlogContent.Text;
             string message = HttpUtility.HtmlDecode(txtBlogContent.Text);
             string title = HttpUtility.HtmlDecode(txtTitle.Text);
+            int category = Convert.ToInt32(ddlCategory.SelectedValue);
 
             string connStr = ConfigurationManager.ConnectionStrings["DBCS"].ConnectionString;
             using (SqlConnection conn = new SqlConnection(connStr))
             {
-                string query = "insert into [dbo].[Post] (PostTitle, PostDate, PostDeleted, PostOwner, PostBody) values (@title, @date, @deleted, @owner, @body)";
+                string query = "insert into [dbo].[Post] (PostTitle, PostDate, PostDeleted, PostOwner, PostBody, PostCategory) values (@title, @date, @deleted, @owner, @body, @category)";
                 using (SqlCommand cmd = new SqlCommand(query, conn))
                 {
                     cmd.Parameters.AddWithValue("@title", title);
@@ -34,13 +35,13 @@ namespace MakeUpArtist.Web
                     cmd.Parameters.AddWithValue("@deleted", "false");
                     cmd.Parameters.AddWithValue("@owner", "Admin");
                     cmd.Parameters.AddWithValue("@body", message);
+                    cmd.Parameters.AddWithValue("@category", category);
                     conn.Open();
                     cmd.ExecuteNonQuery();
                 }
             }
             txtTitle.Text = "";
             txtBlogContent.Text = "";
-
         }
     }
 }

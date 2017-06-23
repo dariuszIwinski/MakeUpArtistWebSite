@@ -1,33 +1,72 @@
-﻿/*navigation*/
-.navbar-nav {
-    margin: 0 auto;
-    display: table;
-    table-layout: fixed;
-    float: none;
-}
-
-/*.navbar-inverse .navbar-nav > li > a:hover {
-    background-color: transparent;
-}*/
-
-.navbar-inverse .navbar-nav > li {
-    margin: 0 50px;
-    font-size: 1.5em;
-    color: red;
-}
-
-    .navbar-inverse .navbar-nav > li > a:hover {
-        color: red;
-    }
-
+﻿/*navigation/**/
 
 .navbar-inverse {
-    background-color: rgba(0,0,0,0.8);
+    background-color: rgba(0,0,0,0.9);
     border-color: rgba(179,142,80,0.8);
     border-radius: 0;
 }
 
-@font-face {
-    font-family: 'Comfortaa-Bold';
-    src: url('../fonts/Comfortaa-Bold.ttf') format('truetype');
+    .navbar-inverse .navbar-nav > li:hover {
+        background-color: rgba(0,0,0,0.5);
+        color: white;
+    }
+
+    .navbar-inverse .navbar-collapse li {
+        font-size: 1.2em;
+        font-weight: 600;
+    }
+
+    .navbar-inverse .navbar-nav > li > a:hover {
+        color: white;
+    }
+
+.general {
+    padding-left: 5%;
+    width: 70%;
+    padding-right: 0;
+}
+.general li {
+    padding-left: 3%;
+    padding-right: 3%;
+}
+
+
+
+
+/*social part*/
+.navbar-inverse .social li:hover {
+    background-color: transparent;
+    color: white;
+}
+
+.social {
+    font-size: 0.8em;
+    padding: initial 1%;
+}
+
+    .social .fa-facebook:hover {
+        color: white;
+    }
+
+    .social .fa-instagram:hover {
+        color: white;
+    }
+
+    .social .fa-youtube-play:hover {
+        color: white;
+    }
+
+    .social .fa-pinterest-square:hover {
+        color: white;
+    }
+
+
+/*brand */
+.navbar-brand {
+    font-size: 1em;
+    margin-top: -7px;
+    padding-bottom: 0;
+    font-family: 'Pacifico', cursive;
+    color: rgba(179,142,80,1) !important;
+    text-align: center;
 }

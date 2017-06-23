@@ -7,7 +7,7 @@ using System.Web.UI.WebControls;
 
 namespace MakeUpArtist.Web
 {
-    public partial class _offer : System.Web.UI.Page
+    public partial class offer : System.Web.UI.Page
     {
         protected void Page_Load(object sender, EventArgs e)
         {

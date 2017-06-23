@@ -1,0 +1,67 @@
+﻿/*panels*/
+.panel-default {
+    background-color: rgba(255,255,255, 0.3);
+}
+
+    .panel-default .panel-heading {
+        margin-bottom: 0px;
+        background-color: rgba(0,0,0, 0.9);
+    }
+
+    .panel-default > .panel-heading > .h3 {
+        color: rgba(179,142,80,0.8);
+        font-weight: 900;
+        margin-top: 0;
+        margin-bottom: 0;
+    }
+
+    .panel-default .panel-default {
+        background-color: rgba(0,0,0, 0.6);
+        padding-left: 0px;
+        padding-right: 0px;
+    }
+
+        .panel-default .panel-default .panel-heading {
+            margin-bottom: 0px;
+            background-color: rgba(0,0,0,0.7);
+        }
+
+        .panel-default .panel-default > .panel-heading > .h4 {
+            color: white;
+            font-weight: 500;
+        }
+
+        .panel-default .panel-default > .panel-body {
+            color: white;
+        }
+
+.fa-phone-square {
+    color: white;
+    margin-right: 1em;
+}
+
+.fa-envelope {
+    color: white;
+    margin-right: 1em;
+}
+
+a {
+    color: white;
+}
+
+    a:hover {
+        text-decoration: none;
+        color: white;
+    }
+
+
+
+.btn-default {
+    background-color: rgba(179,142,80,0.8);
+    color: white;
+}
+
+    .btn-default:hover {
+        background-color: white;
+        color: rgba(179,142,80,0.8);
+    }
