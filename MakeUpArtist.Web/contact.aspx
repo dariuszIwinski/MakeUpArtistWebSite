@@ -1,19 +1,19 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Master.Master" AutoEventWireup="true" CodeBehind="contact.aspx.cs" Inherits="MakeUpArtist.Web.contact" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
+     <link href="content/css/contact.css" rel="stylesheet" />
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
-    <link href="content/css/contact.css" rel="stylesheet" />
     <div class="container">
         <div class="row">
-            <div class="col-xs-8 col-xs-offset-2">
+            <div class="col-xs-12 col-xs-offset-0">
                 <div class="panel panel-default">
                     <div class="panel-heading">
                         <h3 class="h3 text-center">Kontakt</h3>
                     </div>
                     <div class="panel-body">
                         <div class="row">
-                            <div class="panel panel-default col-xs-10 col-xs-offset-1">
+                            <div class="panel panel-default col-xs-8 col-xs-offset-2">
                                 <div class="panel-heading">
                                     <h3 class="h4"  style="text-align: left">Dane do kontaktu</h3>
                
@@ -21,18 +21,18 @@
                                 <div class="panel-body text-center">
                                     <div class="col-xs-6">
                                         <div class="fa fa-phone-square"></div>
-                                        <a>+48 781 874 163</a>
+                                        <a href="tel:781874163">+48 781 874 163</a>
                                     </div>
                                     <div class="col-xs-6">
                                         <div class="fa fa-envelope"></div>
-                                        <a>info@makebynancy.com</a>
+                                        <a href="mailto:info@makebynancy.com">info@makebynancy.com</a>
                                     </div>
                                 </div>
 
                             </div>
                         </div>
                         <div class="row">
-                            <div class="panel panel-default col-xs-10 col-xs-offset-1">
+                            <div class="panel panel-default col-xs-8 col-xs-offset-2">
                                 <div class="panel-heading">
                                     <h3 class="h4"  style="text-align: left">Formularz</h3>
                          

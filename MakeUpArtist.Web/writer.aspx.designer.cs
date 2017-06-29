@@ -10,25 +10,7 @@
 namespace MakeUpArtist.Web {
     
     
-    public partial class writer {
-        
-        /// <summary>
-        /// scriptManagerWritePost control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.ScriptManager scriptManagerWritePost;
-        
-        /// <summary>
-        /// updatePanelTitle control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.UpdatePanel updatePanelTitle;
+    public partial class writer1 {
         
         /// <summary>
         /// txtTitle control.
@@ -47,15 +29,6 @@ namespace MakeUpArtist.Web {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.DropDownList ddlCategory;
-        
-        /// <summary>
-        /// updatePanelBody control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.UpdatePanel updatePanelBody;
         
         /// <summary>
         /// txtBlogContent control.

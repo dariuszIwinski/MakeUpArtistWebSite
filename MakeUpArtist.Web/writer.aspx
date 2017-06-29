@@ -1,99 +1,88 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Master.Master" AutoEventWireup="true" CodeBehind="writer.aspx.cs" Inherits="MakeUpArtist.Web.writer" %>
-<asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
-     <script src="scripts/external/tinymce/jquery.tinymce.min.js"></script>
-    <script src="scripts/external/tinymce/tinymce.min.js"></script>
-    <script type="text/javascript" >
-            tinyMCE.init({
-                    mode: "specific_textareas",
-                    editor_selector: "tinymce",
-                    encoding: "xml",
-                    convert_urls: false,
-                    theme: "advanced",
-                    plugins: "spellchecker,pagebreak,style,layer,table,advhr,advimage,advlink,iespell,inlinepopups,insertdatetime,preview,media,searchreplace,print,paste,directionality,fullscreen,visualchars,nonbreaking,xhtmlxtras",
-                    extended_valid_elements: "iframe[src|width|height|name|align]",
-                    theme_advanced_buttons1: "spellchecker,|,bold,italic,underline,strikethrough,|,justifyleft,justifycenter,justifyright,justifyfull,|,styleselect,formatselect,fontselect,fontsizeselect,|,print,fullscreen",
-                    theme_advanced_buttons2: "cut,copy,paste,pastetext,pasteword,|,search,replace,|,bullist,numlist,|,outdent,indent,blockquote,|,undo,redo,|,link,unlink,anchor,image,cleanup,help,code,|,insertdate,inserttime,preview,|,forecolor,backcolor",
-                    theme_advanced_buttons3: "tablecontrols,|,hr,removeformat,visualaid,|,sub,sup,|,charmap,emotions,media,advhr,|",
-                    theme_advanced_toolbar_location: "top",
-                    theme_advanced_toolbar_align: "left",
-                    theme_advanced_path_location: "bottom",
-                    theme_advanced_resizing: true,
-                    theme_advanced_resize_horizontal: false,
-                    theme_advanced_styles: "Link to Image: lightbox;Image Right Border: rightbordered;Image Left Border: leftbordered;Darker Text: darker",
-                    setup: function (ed) {
-                            ed.onSaveContent.add(function (i, o) {
-                                    o.content = o.content.replace(/&#39/g, "&apos");
-                            });
-                    }
-            });
-</script>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Master.Master" AutoEventWireup="true" CodeBehind="writer.aspx.cs" Inherits="MakeUpArtist.Web.writer1" %>
 
-     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css" />
+<asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
+    <script src="scripts/external/tinymce/jquery.tinymce.min.js"></script>
+    <script src="scripts/external/tinymce/tinymce.min.js"></script>
+    <script type="text/javascript">
+        tinymce.init({
+            selector: 'textarea',
+            height: 500,
+            theme: 'modern',
+            encoding: "xml",
+            plugins: [
+                'advlist autolink lists link image charmap print preview hr anchor pagebreak',
+                'searchreplace wordcount visualblocks visualchars code fullscreen',
+                'insertdatetime media nonbreaking save table contextmenu directionality',
+                'emoticons template paste textcolor colorpicker textpattern imagetools codesample toc help'
+            ],
+            toolbar1: 'undo redo | insert | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image',
+            toolbar2: 'print preview media | forecolor backcolor emoticons | codesample help',
+            image_advtab: true,
+            templates: [
+                { title: 'Test template 1', content: 'Test 1' },
+                { title: 'Test template 2', content: 'Test 2' }
+            ],
+            content_css: [
+                '//fonts.googleapis.com/css?family=Lato:300,300i,400,400i',
+                '//www.tinymce.com/css/codepen.min.css'
+            ],
+            setup: function (editor) {
+                editor.on('SaveContent', function (ed) {
+                    ed.content = ed.content.replace(/&#39/g, "&apos");
+                });
+            }
+        });
+    </script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css" />
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
-     <asp:ScriptManager ID="scriptManagerWritePost" runat="server">
-        </asp:ScriptManager>
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-12">
+                <div class="opac">
+                    <h1 class="h1 text-center">Dodaj post</h1>
+                    <hr />
+                    <div class="row">
 
-        <div class="container">
-            <div class="row">
-                <div class="col-xs-12">
-                    <div class="opac">
-                        <h1 class="h1 text-center">Dodaj post</h1>
-                        <hr />
-                        <div class="row">
-
-                            <div class="col-xs-6">
-                                <h4 class="h4 text-center">Tytuł</h4>
-                                <div class="text-center">
-                                    <asp:UpdatePanel ID="updatePanelTitle" runat="server" UpdateMode="Conditional" ChildrenAsTriggers="False">
-                                        <ContentTemplate>
-                                            <asp:TextBox CssClass="col-sm-10 col-sm-offset-1" ID="txtTitle" runat="server"></asp:TextBox>
-                                        </ContentTemplate>
-                                        <Triggers>
-                                            <asp:AsyncPostBackTrigger ControlID="btnSend" EventName="Click" />
-                                        </Triggers>
-                                    </asp:UpdatePanel>
-                                    
-                                </div>
+                        <div class="col-xs-6">
+                            <h4 class="h4 text-center">Tytuł</h4>
+                            <div class="text-center">
+                                <asp:TextBox CssClass="col-sm-10 col-sm-offset-1" ID="txtTitle" runat="server"></asp:TextBox>
                             </div>
-                            <div class="col-xs-6">
-                                <h4 class="h4 text-center">Kategoria</h4>
-                                <div class="text-center">
-                                    <asp:DropDownList CssClass="col-sm-6 col-sm-offset-3 text-center" ID="ddlCategory" runat="server" Style="left: 0px; top: 0px; color: black;">
-                                        <asp:ListItem Selected="True" Value="0">Recenzje produktów</asp:ListItem>
-                                        <asp:ListItem Value="1">Nancy style inspiracje</asp:ListItem>
-                                        <asp:ListItem Value="2">Pielęgnacje</asp:ListItem>
-                                        <asp:ListItem Value="3">Metamorfozy</asp:ListItem>
-                                        <asp:ListItem Value="4">Edukacja</asp:ListItem>
-                                    </asp:DropDownList>
-                                </div>
+                        </div>
+                        <div class="col-xs-6">
+                            <h4 class="h4 text-center">Kategoria</h4>
+                            <div class="text-center">
+                                <asp:DropDownList CssClass="col-sm-6 col-sm-offset-3 text-center" ID="ddlCategory" runat="server" Style="left: 0px; top: 0px; color: black;">
+                                    <asp:ListItem Selected="True" Value="0">Recenzje produktów</asp:ListItem>
+                                    <asp:ListItem Value="1">Nancy style inspiracje</asp:ListItem>
+                                    <asp:ListItem Value="2">Pielęgnacje</asp:ListItem>
+                                    <asp:ListItem Value="3">Metamorfozy</asp:ListItem>
+                                    <asp:ListItem Value="4">Edukacja</asp:ListItem>
+                                </asp:DropDownList>
+                            </div>
+                        </div>
+                    </div>
+                    <br />
+                    <hr />
+                    <br />
+                    <h4 class="h4 text-center">Treść</h4>
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-sm-10 col-sm-offset-1">
+
+
+                                <asp:TextBox ID="txtBlogContent" runat="server" class="tinymce" Rows="40" TextMode="MultiLine" Columns="120" CssClass="tinymce" />
+
                             </div>
                         </div>
                         <br />
-                        <hr />
-                        <br />
-                        <h4 class="h4 text-center">Treść</h4>
-                        <div class="container">
-                            <div class="row">
-                                <div class="col-sm-10 col-sm-offset-1">
-                                  
-                                    <asp:UpdatePanel ID="updatePanelBody" runat="server" ChildrenAsTriggers="False" UpdateMode="Conditional">
-                                        <ContentTemplate>
-                                                <asp:TextBox ID="txtBlogContent" CssClass="tinymce" runat="server" TextMode="MultiLine"></asp:TextBox>
-                                        </ContentTemplate>
-                                        <Triggers>
-                                            <asp:AsyncPostBackTrigger ControlID="btnSend" EventName="Click" />
-                                        </Triggers>
-                                    </asp:UpdatePanel>
-                                </div>
-                            </div>
-                               <br />
                         <br />
                         <asp:Button CssClass="btn btn-default text-center col-sm-4 col-sm-offset-4" ID="btnSend" runat="server" Text="Wyślij" CausesValidation="False" OnClick="btnSend_Click" />
-                        </div>
-                     
                     </div>
+
                 </div>
             </div>
         </div>
+    </div>
 </asp:Content>

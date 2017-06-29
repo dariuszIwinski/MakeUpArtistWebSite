@@ -23,7 +23,7 @@ namespace MakeUpArtist.Web
 
             var fromAddress = new MailAddress(email, name);
             var toAddress = new MailAddress("info@makebynancy.com", "MakeByNancy");
-            string fromPassword = "password";
+            string fromPassword = "theanimals1234";
             string subject = "Msg from " + name + "on MakeByNancySite";
             string body = txtContactMessage.Value.Trim();
             var smtp = new SmtpClient
