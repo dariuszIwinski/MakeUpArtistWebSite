@@ -44,7 +44,75 @@ namespace MakeUpArtist.Web
 
         public void InitializeControls()
         {
+            List<string> lstPostID = new List<string>();
+            List<string> lstTitles = new List<string>();
+            List<string> lstBodies = new List<string>();
+            List<string> lstDates = new List<string>();
+            List<string> lstCategories = new List<string>();
+            List<string> lstImages = new List<string>();
 
+            DataTable dt = Blog.getHeadersNews().Item1;
+            foreach (DataRow item in dt.Rows)
+            {
+                lstPostID.Add(item[0].ToString());
+                lstTitles.Add(item[1].ToString());
+                lstDates.Add(item[2].ToString());
+                lstCategories.Add(item[3].ToString());
+                lstImages.Add(item[4].ToString());
+            }
+            blogTitle.InnerText = "News";
+
+            for (int i = 0; i < lstTitles.Count; i++)
+            {
+                Panel panelPosition = new Panel();
+                panelPosition.CssClass = "col-xs-12 col-sm-6 col-md-4";
+
+                Panel panelPanel = new Panel();
+                panelPanel.CssClass = "panel panel-post";
+
+                Panel panelBody = new Panel();
+                panelBody.CssClass = "panel-body panel-postHeader row col-xs-12";
+
+                Image img = new Image();
+                if (String.IsNullOrEmpty(lstImages[i].ToString()))
+                {
+                    img.ImageUrl = @"img/pedzel.png";
+                }
+                else
+                {
+                    img.ImageUrl = lstImages[i].ToString();
+                }
+
+                img.CssClass = "col-xs-12 img-responsive";
+
+                panelBody.Controls.Add(img);
+
+                LinkButton lbtnTitle = new LinkButton();
+                lbtnTitle.Text = lstTitles[i].ToString();
+                lbtnTitle.CssClass = "btn-title";
+                lbtnTitle.Command += new CommandEventHandler(DynamicCommandPost);
+                lbtnTitle.CommandArgument = lstPostID[i].ToString();
+
+                panelBody.Controls.Add(lbtnTitle);
+
+                Literal ltrl = new Literal();
+                ltrl.Text = "<hr />";
+
+                panelBody.Controls.Add(ltrl);
+
+                LinkButton lbtnCategory = new LinkButton();
+                lbtnCategory.Text = lstCategories[i].ToString();
+                lbtnCategory.CssClass = "label label-success";
+                lbtnCategory.Command += new CommandEventHandler(DynamicCommandCategory);
+                lbtnCategory.CommandArgument = getCategory(lstCategories[i].ToString()).ToString();
+
+
+                panelBody.Controls.Add(lbtnCategory);
+
+                panelPanel.Controls.Add(panelBody);
+                panelPosition.Controls.Add(panelPanel);
+                blogContent.Controls.Add(panelPosition);
+            }
         }
 
         protected void lbInspiracje_Click(object sender, EventArgs e)
