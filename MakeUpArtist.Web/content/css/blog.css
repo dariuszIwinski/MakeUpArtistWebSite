@@ -1,4 +1,5 @@
 ﻿/*ogólne*/
+
 .row {
     margin: 0;
     padding: 0;
@@ -54,6 +55,12 @@
 
 
 /*panels*/
+.panelPosition 
+{
+    padding-bottom: 1em;
+}
+
+
 .panel-default {
     background-color: white;
     background-color: rgba(255,255,255, 0.6);
@@ -72,20 +79,6 @@
         margin-bottom: 0;
     }
 
-.panel-blog-preview-single {
-    margin: 0 0.6%;
-    background-color: white;
-}
-
-    .panel-blog-preview-single h4 a {
-        color: black;
-        font-weight: 600;
-        text-decoration: none;
-    }
-
-        .panel-blog-preview-single h4 a:hover {
-            color: rgb(179,142,80);
-        }
 
 
 label, .label-success {
@@ -103,9 +96,6 @@ label, .label-success {
         background-color: rgb(179,142,80) !important;
     }
 
-.panel-blog-preview-single a:hover {
-    text-decoration: none;
-}
 
 .post-text {
     background-color: white;
@@ -127,10 +117,11 @@ label, .label-success {
     padding-bottom: 5%;
 }
 
-.img-responsive {
+.panel .img-responsive {
     padding: 0 0 1em 0;
+    max-height: 219px;
+    min-height: 219px;
 }
-
 
 hr {
     border-color: rgb(179,142,80) !important;

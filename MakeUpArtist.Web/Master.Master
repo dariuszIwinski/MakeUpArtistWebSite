@@ -28,22 +28,19 @@
 </head>
 <body>
     <%-- Background video --%>
-    <section class="callout">
-        <div class="video-bg">
-            <video poster="/img/bkg_photo.jpg" id="bgvid" autoplay muted>
-                <source src="/img/bkg_video.mp4" type="video/mp4" />
-            </video>
-        </div>
-        <div class="video-overlay"></div>
-        <div class="callout-inner">
-            <!-- Our callout content goes here -->
+    <div class="fullscreen-bg">
+    <video muted autoplay poster="img/bkg_photo.jpg" class="fullscreen-bg__video">
+        <source src="img/bkg_video.mp4" type="video/mp4">
+    </video>
+</div>
+  
 
             <%-- Logo --%>
             <div class="container">
                 <div class="row">
-                    <div class="col-xs-4 col-xs-offset-4">
-                        <div class="">
-                            <img class="img-responsive" src="img/logoMediumBlack.png" />
+                    <div class="col-xs-4 col-xs-offset-5">
+                        <div class="center-block">
+                            <img class="img-responsive" src="img/logoMediumBlack.png" style="max-height: 70px;"/>
                         </div>
                     </div>
                 </div>
@@ -88,7 +85,5 @@
                     </asp:ContentPlaceHolder>
                 </div>
             </form>
-        </div>
-    </section>
 </body>
 </html>

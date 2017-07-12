@@ -21,11 +21,11 @@ namespace MakeUpArtist.Web
             string email = txtContactEmail.Value.Trim();
             string name = txtContactName.Value.Trim();
 
-            var fromAddress = new MailAddress(email, name);
-            var toAddress = new MailAddress("info@makebynancy.com", "MakeByNancy");
+            var toAddress = new MailAddress(email, name);
+            var fromAddress = new MailAddress("infomakebynancy@gmail.com", "MakeByNancy");
             string fromPassword = "theanimals1234";
-            string subject = "Msg from " + name + "on MakeByNancySite";
-            string body = txtContactMessage.Value.Trim();
+            string subject = "Msg from " + name + " on MakeByNancySite";
+            string body = name + " ( " + email + " )  pisze: " + txtContactMessage.Value.Trim();
             var smtp = new SmtpClient
             {
                 Host = "smtp.gmail.com",
@@ -36,13 +36,21 @@ namespace MakeUpArtist.Web
                 Credentials = new NetworkCredential(fromAddress.Address, fromPassword),
                 Timeout = 20000
             };
-            using (var message = new MailMessage(fromAddress, toAddress)
+            using (var message = new MailMessage(fromAddress, fromAddress)
             {
                 Subject = subject,
-                Body = body
+                Body = body,
+                IsBodyHtml = true
             })
             {
-                smtp.Send(message);
+                try
+                {
+                    smtp.Send(message);
+                }
+                catch (Exception)
+                {
+
+                }
             }
         }
     }

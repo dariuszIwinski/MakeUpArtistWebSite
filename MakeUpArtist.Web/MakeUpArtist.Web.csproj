@@ -66,6 +66,7 @@
     <Reference Include="System.Xml.Linq" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="actions.aspx" />
     <Content Include="content\css\BackgroundVideo.css" />
     <Content Include="contact.aspx" />
     <Content Include="content\css\background.css" />
@@ -84,6 +85,7 @@
     <Content Include="content\css\navigation.css" />
     <Content Include="content\css\panels.css" />
     <Content Include="default.aspx" />
+    <Content Include="editor.aspx" />
     <Content Include="img\bkg_photo.jpg" />
     <Content Include="img\imgBlog.jpg" />
     <Content Include="img\logoMediumBlack.png" />
@@ -212,6 +214,13 @@
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="actions.aspx.cs">
+      <DependentUpon>actions.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="actions.aspx.designer.cs">
+      <DependentUpon>actions.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Blog.cs" />
     <Compile Include="contact.aspx.cs">
       <DependentUpon>contact.aspx</DependentUpon>
@@ -226,6 +235,13 @@
     </Compile>
     <Compile Include="default.aspx.designer.cs">
       <DependentUpon>default.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="editor.aspx.cs">
+      <DependentUpon>editor.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="editor.aspx.designer.cs">
+      <DependentUpon>editor.aspx</DependentUpon>
     </Compile>
     <Compile Include="Master.Master.cs">
       <DependentUpon>Master.Master</DependentUpon>

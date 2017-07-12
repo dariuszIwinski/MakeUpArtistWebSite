@@ -63,7 +63,7 @@
                         <div class="row">
                             <div class="col-xs-12">
                                 <div class="panel panel-default">
-                                    <asp:Panel class="panel-body text-center" ID="blogContent" runat="server" Visible="true"></asp:Panel>
+                                    <asp:Panel class="panel-body text-center" ID="blogContent" runat="server" Visible="true" ClientIDMode="Static"></asp:Panel>
                                     <div class="panel-body text-center" id="blogPost" runat="server" visible="false">
                                         <div class="row">
                                             <div class="post-text" id="postContent" runat="server" visible="false">

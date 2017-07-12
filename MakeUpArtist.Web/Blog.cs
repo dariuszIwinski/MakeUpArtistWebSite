@@ -11,7 +11,7 @@ namespace MakeUpArtist.Web
     public class Blog
     {
         //dodanie posta
-        public static bool addPost(string title, string body, int category)
+        public static bool addPost(string title, string body, int category, string image)
         {
             bool result = false;
 
@@ -20,7 +20,7 @@ namespace MakeUpArtist.Web
                 string connStr = ConfigurationManager.ConnectionStrings["DBCS"].ConnectionString;
                 using (SqlConnection conn = new SqlConnection(connStr))
                 {
-                    string query = "INSERT INTO dbo.Post (PostTitle, PostDate, PostDeleted, PostOwner, PostBody, PostCategory) values (@title, @date, @deleted, @owner, @body, @category)";
+                    string query = "INSERT INTO dbo.Post (PostTitle, PostDate, PostDeleted, PostOwner, PostBody, PostCategory, PostImage) values (@title, @date, @deleted, @owner, @body, @category, @image)";
                     using (SqlCommand cmd = new SqlCommand(query, conn))
                     {
                         cmd.Parameters.AddWithValue("@title", title);
@@ -29,6 +29,7 @@ namespace MakeUpArtist.Web
                         cmd.Parameters.AddWithValue("@owner", "Admin");
                         cmd.Parameters.AddWithValue("@body", body);
                         cmd.Parameters.AddWithValue("@category", category.ToString());
+                        cmd.Parameters.AddWithValue("@image", image);
                         conn.Open();
                         cmd.ExecuteNonQuery();
                         result = true;
@@ -58,7 +59,7 @@ namespace MakeUpArtist.Web
                     cmd.Connection = conn;
                     cmd.CommandText =
                     cmd.CommandText =
-                                        "SELECT PostID, PostTitle, PostDate, CategoryName, PostBody FROM dbo.Post " +
+                                        "SELECT PostID, PostTitle, PostDate, CategoryName, PostBody, PostImage FROM dbo.Post " +
                                         "INNER JOIN dbo.Category ON dbo.Post.PostCategory = dbo.Category.CategoryID " +
                                         "WHERE PostDeleted = 0 AND PostID = " + postID.ToString();
                     conn.Open();
@@ -77,7 +78,7 @@ namespace MakeUpArtist.Web
         }
 
         //naglowki dla kategorii
-        public static Tuple<DataTable, bool> getHeadersCategory(int category)
+        public static Tuple<DataTable, bool> getPosts()
         {
             DataTable dt = new DataTable();
             bool result = false;
@@ -91,9 +92,9 @@ namespace MakeUpArtist.Web
                     cmd.Connection = conn;
                     cmd.CommandText =
                     cmd.CommandText =
-                                        "SELECT PostID, PostTitle, PostDate, CategoryName, PostImage FROM dbo.Post " +
+                                        "SELECT PostID, PostTitle, PostDate, CategoryName, PostImage, PostBody FROM dbo.Post " +
                                         "INNER JOIN dbo.Category ON dbo.Post.PostCategory = dbo.Category.CategoryID " +
-                                        "WHERE PostDeleted = 0 AND PostCategory = " + category.ToString() +
+                                        "WHERE PostDeleted = 0 "+
                                         "ORDER BY PostDate";
                     conn.Open();
                     using (SqlDataReader rdr = cmd.ExecuteReader())
@@ -208,6 +209,65 @@ namespace MakeUpArtist.Web
             }
             Tuple<DataTable, bool> tplComments = new Tuple<DataTable, bool>(dt, result);
             return tplComments;
+        }
+
+        //edit post
+        public static bool editPost(string postID, string title, string body, string img)
+        {
+            bool result = false;
+
+            try
+            {
+                string connStr = ConfigurationManager.ConnectionStrings["DBCS"].ConnectionString;
+                using (SqlConnection conn = new SqlConnection(connStr))
+                {
+                    string query = "UPDATE dbo.Post SET PostTitle = @title, PostBody = @body, PostImage = @img WHERE PostID = @postID";
+                    using (SqlCommand cmd = new SqlCommand(query, conn))
+                    {
+                        cmd.Parameters.AddWithValue("@postID", postID);
+                        cmd.Parameters.AddWithValue("@title", title);
+                        cmd.Parameters.AddWithValue("@body", body);
+                        cmd.Parameters.AddWithValue("@img", img);
+                        conn.Open();
+                        cmd.ExecuteNonQuery();
+                        result = true;
+                    }
+                }
+            }
+            catch (Exception)
+            {
+                result = false;
+            }
+
+            return result;
+        }
+
+        //delete post
+        public static bool deletePost(string PostID)
+        {
+            bool result = false;
+
+            try
+            {
+                string connStr = ConfigurationManager.ConnectionStrings["DBCS"].ConnectionString;
+                using (SqlConnection conn = new SqlConnection(connStr))
+                {
+                    string query = "UPDATE dbo.Post SET PostDeleted = 1 WHERE PostID = @postID";
+                    using (SqlCommand cmd = new SqlCommand(query, conn))
+                    {
+                        cmd.Parameters.AddWithValue("@postID", PostID);
+                        conn.Open();
+                        cmd.ExecuteNonQuery();
+                        result = true;
+                    }
+                }
+            }
+            catch (Exception)
+            {
+                result = false;
+            }
+
+            return result;
         }
     }
 }

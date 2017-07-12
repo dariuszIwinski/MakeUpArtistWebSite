@@ -31,6 +31,15 @@ namespace MakeUpArtist.Web {
         protected global::System.Web.UI.WebControls.DropDownList ddlCategory;
         
         /// <summary>
+        /// txtImage control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtImage;
+        
+        /// <summary>
         /// txtBlogContent control.
         /// </summary>
         /// <remarks>

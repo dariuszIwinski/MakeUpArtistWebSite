@@ -29,11 +29,13 @@ namespace MakeUpArtist.Web
             string message = HttpUtility.HtmlDecode(txtBlogContent.Text);
             string title = HttpUtility.HtmlDecode(txtTitle.Text);
             int category = Convert.ToInt32(ddlCategory.SelectedValue);
+            string img = txtImage.Text.Trim();
 
-            Blog.addPost(title, message, category);
+            Blog.addPost(title, message, category, img);
 
             txtTitle.Text = "";
             txtBlogContent.Text = "";
+            txtImage.Text = "";
         }
     }
 }

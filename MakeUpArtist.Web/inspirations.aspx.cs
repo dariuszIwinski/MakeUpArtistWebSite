@@ -13,8 +13,17 @@ namespace MakeUpArtist.Web
 {
     public partial class WebForm4 : System.Web.UI.Page
     {
-        int postIDGlobal;
+
+        public int postIDGlobal
+        {
+            get { return ViewState["postIDGlobal"] != null ? (int)ViewState["postIDGlobal"] : 0; }
+            set { ViewState["postIDGlobal"] = value; }
+        }
+
+
         Dictionary<string, int> categDict = new Dictionary<string, int>();
+        List<string> lstPostID;
+        List<string> lstCategories;
 
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -26,23 +35,28 @@ namespace MakeUpArtist.Web
             categDict.Add("Edukacja", 4);
             categDict.Add("Recenzje", 5);
 
-            InitializeControls();
+            //pobranie wszystkich postow
+            Tuple<List<string>, List<string>, List<string>, List<string>> PostBox = InitializeControls();
+            lstPostID = PostBox.Item1;
+            lstCategories = PostBox.Item3;
+            //wyswietlanie w news tylko 3 najnowszych
+            if (!IsPostBack)
+            {
+                foreach (Panel panel in blogContent.Controls)
+                {
+                    foreach (string item in lstPostID.Take(3))
+                    {
+                        if (panel.ID == ("panelPosition" + item))
+                        {
+                            panel.CssClass = "panelPosition col-xs-12 col-sm-6 col-md-4";
+                        }
 
-            headersCategory(1);
-            headersCategory(2);
-            headersCategory(3);
-            headersCategory(4);
-            headersCategory(5);
-            postIDGlobal = 0;
-            headersNews();
-
-
-
+                    }
+                }
+            }
         }
 
-        #region menuBlog
-
-        public void InitializeControls()
+        public Tuple<List<string>, List<string>, List<string>, List<string>> InitializeControls()
         {
             List<string> lstPostID = new List<string>();
             List<string> lstTitles = new List<string>();
@@ -51,7 +65,7 @@ namespace MakeUpArtist.Web
             List<string> lstCategories = new List<string>();
             List<string> lstImages = new List<string>();
 
-            DataTable dt = Blog.getHeadersNews().Item1;
+            DataTable dt = Blog.getPosts().Item1;
             foreach (DataRow item in dt.Rows)
             {
                 lstPostID.Add(item[0].ToString());
@@ -59,21 +73,29 @@ namespace MakeUpArtist.Web
                 lstDates.Add(item[2].ToString());
                 lstCategories.Add(item[3].ToString());
                 lstImages.Add(item[4].ToString());
+                lstBodies.Add(item[5].ToString());
             }
-            blogTitle.InnerText = "News";
+
+            Tuple<List<string>, List<string>, List<string>, List<string>> PostBox = new Tuple<List<string>, List<string>, List<string>, List<string>>(lstPostID, lstDates, lstCategories, lstBodies);
 
             for (int i = 0; i < lstTitles.Count; i++)
             {
                 Panel panelPosition = new Panel();
-                panelPosition.CssClass = "col-xs-12 col-sm-6 col-md-4";
+                panelPosition.CssClass = "panelPosition col-xs-12 col-sm-6 col-md-4 hidden";
+                panelPosition.ID = "panelPosition" + lstPostID[i];
 
                 Panel panelPanel = new Panel();
                 panelPanel.CssClass = "panel panel-post";
+                panelPanel.ID = "panelPanel" + lstPostID[i];
 
                 Panel panelBody = new Panel();
                 panelBody.CssClass = "panel-body panel-postHeader row col-xs-12";
+                panelBody.ID = "panelBody" + lstPostID[i];
 
                 Image img = new Image();
+                img.ID = "img" + lstPostID[i];
+                img.CssClass = "col-xs-12 img-responsive";
+
                 if (String.IsNullOrEmpty(lstImages[i].ToString()))
                 {
                     img.ImageUrl = @"img/pedzel.png";
@@ -83,8 +105,6 @@ namespace MakeUpArtist.Web
                     img.ImageUrl = lstImages[i].ToString();
                 }
 
-                img.CssClass = "col-xs-12 img-responsive";
-
                 panelBody.Controls.Add(img);
 
                 LinkButton lbtnTitle = new LinkButton();
@@ -92,12 +112,13 @@ namespace MakeUpArtist.Web
                 lbtnTitle.CssClass = "btn-title";
                 lbtnTitle.Command += new CommandEventHandler(DynamicCommandPost);
                 lbtnTitle.CommandArgument = lstPostID[i].ToString();
+                lbtnTitle.ID = "lbtnTitle" + lstPostID[i];
 
                 panelBody.Controls.Add(lbtnTitle);
 
                 Literal ltrl = new Literal();
                 ltrl.Text = "<hr />";
-
+                ltrl.ID = "ltrl" + lstPostID[i];
                 panelBody.Controls.Add(ltrl);
 
                 LinkButton lbtnCategory = new LinkButton();
@@ -105,7 +126,7 @@ namespace MakeUpArtist.Web
                 lbtnCategory.CssClass = "label label-success";
                 lbtnCategory.Command += new CommandEventHandler(DynamicCommandCategory);
                 lbtnCategory.CommandArgument = getCategory(lstCategories[i].ToString()).ToString();
-
+                lbtnCategory.ID = "lbtnCategory" + lstPostID[i];
 
                 panelBody.Controls.Add(lbtnCategory);
 
@@ -113,128 +134,8 @@ namespace MakeUpArtist.Web
                 panelPosition.Controls.Add(panelPanel);
                 blogContent.Controls.Add(panelPosition);
             }
-        }
 
-        protected void lbInspiracje_Click(object sender, EventArgs e)
-        {
-            blogContent.Controls.Clear();
-            postIDGlobal = 1;
-            headersCategory(1);
-        }
-
-        protected void lbPelegnacja_Click(object sender, EventArgs e)
-        {
-            blogContent.Controls.Clear();
-            postIDGlobal = 2;
-            headersCategory(2);
-        }
-
-        protected void lbMetamorfozy_Click(object sender, EventArgs e)
-        {
-            blogContent.Controls.Clear();
-            postIDGlobal = 3;
-            headersCategory(3);
-        }
-
-        protected void lbEdukacja_Click(object sender, EventArgs e)
-        {
-            blogContent.Controls.Clear();
-            postIDGlobal = 4;
-            headersCategory(4);
-        }
-
-        protected void lbRecenzje_Click(object sender, EventArgs e)
-        {
-            blogContent.Controls.Clear();
-            postIDGlobal = 5;
-            headersCategory(5);
-        }
-        #endregion
-
-        //naglowki postow w News
-        public void headersNews()
-        {
-            postContent.Visible = false;
-            blogContent.Visible = true;
-            try
-            {
-                List<string> lstPostID = new List<string>();
-                List<string> lstTitles = new List<string>();
-                List<string> lstBodies = new List<string>();
-                List<string> lstDates = new List<string>();
-                List<string> lstCategories = new List<string>();
-                List<string> lstImages = new List<string>();
-
-                DataTable dt = Blog.getHeadersNews().Item1;
-                foreach (DataRow item in dt.Rows)
-                {
-                    lstPostID.Add(item[0].ToString());
-                    lstTitles.Add(item[1].ToString());
-                    lstDates.Add(item[2].ToString());
-                    lstCategories.Add(item[3].ToString());
-                    lstImages.Add(item[4].ToString());
-                }
-                blogTitle.InnerText = "News";
-
-                for (int i = 0; i < lstTitles.Count; i++)
-                {
-                    Panel panelPosition = new Panel();
-                    panelPosition.CssClass = "col-xs-12 col-sm-6 col-md-4";
-
-                    Panel panelPanel = new Panel();
-                    panelPanel.CssClass = "panel panel-post";
-
-                    Panel panelBody = new Panel();
-                    panelBody.CssClass = "panel-body panel-postHeader row col-xs-12";
-
-                    Image img = new Image();
-                    if (String.IsNullOrEmpty(lstImages[i].ToString()))
-                    {
-                        img.ImageUrl = @"img/pedzel.png";
-                    }
-                    else
-                    {
-                        img.ImageUrl = lstImages[i].ToString();
-                    }
-
-                    img.CssClass = "col-xs-12 img-responsive";
-
-                    panelBody.Controls.Add(img);
-
-                    LinkButton lbtnTitle = new LinkButton();
-                    lbtnTitle.Text = lstTitles[i].ToString();
-                    lbtnTitle.CssClass = "btn-title";
-                    lbtnTitle.Command += new CommandEventHandler(DynamicCommandPost);
-                    lbtnTitle.CommandArgument = lstPostID[i].ToString();
-
-                    panelBody.Controls.Add(lbtnTitle);
-
-                    Literal ltrl = new Literal();
-                    ltrl.Text = "<hr />";
-
-                    panelBody.Controls.Add(ltrl);
-
-                    LinkButton lbtnCategory = new LinkButton();
-                    lbtnCategory.Text = lstCategories[i].ToString();
-                    lbtnCategory.CssClass = "label label-success";
-                    lbtnCategory.Command += new CommandEventHandler(DynamicCommandCategory);
-                    lbtnCategory.CommandArgument = getCategory(lstCategories[i].ToString()).ToString();
-
-
-                    panelBody.Controls.Add(lbtnCategory);
-
-                    panelPanel.Controls.Add(panelBody);
-                    panelPosition.Controls.Add(panelPanel);
-                    blogContent.Controls.Add(panelPosition);
-                }
-            }
-            catch (Exception)
-            {
-
-
-            }
-
-
+            return PostBox;
         }
 
         public int getCategory(string category)
@@ -253,96 +154,13 @@ namespace MakeUpArtist.Web
 
         }
 
-        //naglowki postow danej Kategorii
-        public void headersCategory(int category)
-        {
-            postContent.Visible = false;
-            blogContent.Visible = true;
-
-            try
-            {
-                List<string> lstPostID = new List<string>();
-                List<string> lstTitles = new List<string>();
-                List<string> lstBodies = new List<string>();
-                List<string> lstDates = new List<string>();
-                List<string> lstCategories = new List<string>();
-                List<string> lstImages = new List<string>();
-                DataTable dt = Blog.getHeadersCategory(category).Item1;
-                foreach (DataRow item in dt.Rows)
-                {
-                    lstPostID.Add(item[0].ToString());
-                    lstTitles.Add(item[1].ToString());
-                    lstDates.Add(item[2].ToString());
-                    lstCategories.Add(item[3].ToString());
-                    lstImages.Add(item[4].ToString());
-                }
-                blogTitle.InnerText = lstCategories[0].ToString();
-
-                for (int i = 0; i < lstTitles.Count; i++)
-                {
-                    Panel panelPosition = new Panel();
-                    panelPosition.CssClass = "col-xs-12 col-sm-6 col-md-4";
-                    panelPosition.Style.Add("padding-bottom", "15px");
-
-                    Panel panelPanel = new Panel();
-                    panelPanel.CssClass = "panel panel-post";
-
-                    Panel panelBody = new Panel();
-                    panelBody.CssClass = "panel-body panel-postHeader row col-xs-12";
-
-                    Image img = new Image();
-                    if (String.IsNullOrEmpty(lstImages[i].ToString()))
-                    {
-                        img.ImageUrl = @"img/pedzel.png";
-                    }
-                    else
-                    {
-                        img.ImageUrl = lstImages[i].ToString();
-                    }
-                    img.CssClass = "col-xs-12 img-responsive";
-
-                    panelBody.Controls.Add(img);
-
-                    LinkButton lbtnTitle = new LinkButton();
-                    lbtnTitle.Text = lstTitles[i].ToString();
-                    lbtnTitle.CssClass = "btn-title";
-                    lbtnTitle.Command += new CommandEventHandler(DynamicCommandPost);
-                    lbtnTitle.CommandArgument = lstPostID[i].ToString();
-
-                    panelBody.Controls.Add(lbtnTitle);
-
-                    Literal ltrl = new Literal();
-                    ltrl.Text = "<hr />";
-
-                    panelBody.Controls.Add(ltrl);
-
-                    LinkButton lbtnCategory = new LinkButton();
-                    lbtnCategory.Text = lstCategories[i].ToString();
-                    lbtnCategory.CssClass = "label label-success";
-                    lbtnCategory.Command += new CommandEventHandler(DynamicCommandCategory);
-                    lbtnCategory.CommandArgument = getCategory(lstCategories[i].ToString()).ToString();
-
-                    panelBody.Controls.Add(lbtnCategory);
-
-                    panelPanel.Controls.Add(panelBody);
-                    panelPosition.Controls.Add(panelPanel);
-                    blogContent.Controls.Add(panelPosition);
-                }
-            }
-            catch (Exception)
-            {
-
-            }
-
-        }
-
-
         public void displayPost(int postID)
         {
             postIDGlobal = postID;
             blogContent.Visible = false;
             blogPost.Visible = true;
             postContent.Visible = true;
+
             //pobieranie danych postu
             string postTitle = "";
             string postDate = "";
@@ -424,33 +242,210 @@ namespace MakeUpArtist.Web
 
         public void addComment(int postID)
         {
-            try
-            {
-                string body = txtAddComment.Text;
-                string owner = txtAddCommentOwner.Text;
 
-                Blog.addComment(postID, owner, body);
-            }
-            catch (Exception)
-            {
+            string body = txtAddComment.Text;
+            string owner = txtAddCommentOwner.Text;
 
-            }
+            Blog.addComment(postID, owner, body);
+            Response.Redirect(Request.RawUrl);
         }
 
         public void DynamicCommandPost(Object sender, CommandEventArgs e)
         {
-            blogContent.Controls.Clear();
             displayPost((Convert.ToInt32(e.CommandArgument)));
         }
         void DynamicCommandCategory(Object sender, CommandEventArgs e)
         {
-            blogContent.Controls.Clear();
-            headersCategory(Convert.ToInt32(e.CommandArgument));
+            blogContent.Visible = true;
+            blogPost.Visible = false;
+            postContent.Visible = false;
+
+            string category = "";
+            foreach (var item in categDict)
+            {
+                if (e.CommandArgument.ToString() == item.Value.ToString())
+                {
+                    blogTitle.InnerHtml = item.Key;
+                    category = item.Key;
+                }
+            }
+
+            foreach (Panel panel in blogContent.Controls)
+            {
+                panel.CssClass = "panelPosition col-xs-12 col-sm-6 col-md-4 hidden";
+            }
+
+            foreach (Panel panel in blogContent.Controls)
+            {
+                foreach (var categ in lstCategories.Select((value, index) => new { value, index }))
+                {
+                    if (categ.value.ToString() == category)
+                    {
+                        string postID = lstPostID.ElementAt(categ.index);
+
+                        if (panel.ID == ("panelPosition" + postID))
+                        {
+                            panel.CssClass = "panelPosition col-xs-12 col-sm-6 col-md-4";
+                        }
+                    }
+
+                }
+            }
         }
 
         protected void btnAddComment_Click(object sender, EventArgs e)
         {
             addComment(postIDGlobal);
+        }
+
+        protected void lbInspiracje_Click(object sender, EventArgs e)
+        {
+            blogContent.Visible = true;
+            blogPost.Visible = false;
+            postContent.Visible = false;
+
+            foreach (Panel panel in blogContent.Controls)
+            {
+                panel.CssClass = "panelPosition col-xs-12 col-sm-6 col-md-4 hidden";
+            }
+            blogTitle.InnerHtml = "Inspiracje";
+
+            foreach (Panel panel in blogContent.Controls)
+            {
+                foreach (var item in lstCategories.Select((value, index) => new { value, index }))
+                {
+                    if (item.value.ToString() == "Inspiracje")
+                    {
+                        string postID = lstPostID.ElementAt(item.index);
+
+                        if (panel.ID == ("panelPosition" + postID))
+                        {
+                            panel.CssClass = "panelPosition col-xs-12 col-sm-6 col-md-4";
+                        }
+                    }
+
+                }
+            }
+        }
+
+        protected void lbPelegnacja_Click(object sender, EventArgs e)
+        {
+            blogContent.Visible = true;
+            blogPost.Visible = false;
+            postContent.Visible = false;
+
+            foreach (Panel panel in blogContent.Controls)
+            {
+                panel.CssClass = "panelPosition col-xs-12 col-sm-6 col-md-4 hidden";
+            }
+            blogTitle.InnerHtml = "Pielęgnacje";
+
+            foreach (Panel panel in blogContent.Controls)
+            {
+                foreach (var item in lstCategories.Select((value, index) => new { value, index }))
+                {
+                    if (item.value.ToString() == "Pielęgnacje")
+                    {
+                        string postID = lstPostID.ElementAt(item.index);
+
+                        if (panel.ID == ("panelPosition" + postID))
+                        {
+                            panel.CssClass = "panelPosition col-xs-12 col-sm-6 col-md-4";
+                        }
+                    }
+
+                }
+            }
+        }
+
+        protected void lbMetamorfozy_Click(object sender, EventArgs e)
+        {
+            blogContent.Visible = true;
+            blogPost.Visible = false;
+            postContent.Visible = false;
+
+            foreach (Panel panel in blogContent.Controls)
+            {
+                panel.CssClass = "panelPosition col-xs-12 col-sm-6 col-md-4 hidden";
+            }
+            blogTitle.InnerHtml = "Metamorfozy";
+
+            foreach (Panel panel in blogContent.Controls)
+            {
+                foreach (var item in lstCategories.Select((value, index) => new { value, index }))
+                {
+                    if (item.value.ToString() == "Metamorfozy")
+                    {
+                        string postID = lstPostID.ElementAt(item.index);
+
+                        if (panel.ID == ("panelPosition" + postID))
+                        {
+                            panel.CssClass = "panelPosition col-xs-12 col-sm-6 col-md-4";
+                        }
+                    }
+
+                }
+            }
+        }
+
+        protected void lbEdukacja_Click(object sender, EventArgs e)
+        {
+            blogContent.Visible = true;
+            blogPost.Visible = false;
+            postContent.Visible = false;
+
+            foreach (Panel panel in blogContent.Controls)
+            {
+                panel.CssClass = "panelPosition col-xs-12 col-sm-6 col-md-4 hidden";
+            }
+            blogTitle.InnerHtml = "Edukacja";
+
+            foreach (Panel panel in blogContent.Controls)
+            {
+                foreach (var item in lstCategories.Select((value, index) => new { value, index }))
+                {
+                    if (item.value.ToString() == "Edukacja")
+                    {
+                        string postID = lstPostID.ElementAt(item.index);
+
+                        if (panel.ID == ("panelPosition" + postID))
+                        {
+                            panel.CssClass = "panelPosition col-xs-12 col-sm-6 col-md-4";
+                        }
+                    }
+
+                }
+            }
+        }
+
+        protected void lbRecenzje_Click(object sender, EventArgs e)
+        {
+            blogContent.Visible = true;
+            blogPost.Visible = false;
+            postContent.Visible = false;
+
+            foreach (Panel panel in blogContent.Controls)
+            {
+                panel.CssClass = "panelPosition col-xs-12 col-sm-6 col-md-4 hidden";
+            }
+            blogTitle.InnerHtml = "Recenzje";
+
+            foreach (Panel panel in blogContent.Controls)
+            {
+                foreach (var item in lstCategories.Select((value, index) => new { value, index }))
+                {
+                    if (item.value.ToString() == "Recenzje")
+                    {
+                        string postID = lstPostID.ElementAt(item.index);
+
+                        if (panel.ID == ("panelPosition" + postID))
+                        {
+                            panel.CssClass = "panelPosition col-xs-12 col-sm-6 col-md-4";
+                        }
+                    }
+
+                }
+            }
         }
     }
 }

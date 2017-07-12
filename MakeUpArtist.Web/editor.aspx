@@ -1,4 +1,4 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Master.Master" AutoEventWireup="true" CodeBehind="writer.aspx.cs" Inherits="MakeUpArtist.Web.writer1" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Master.Master" AutoEventWireup="true" CodeBehind="editor.aspx.cs" Inherits="MakeUpArtist.Web.editor" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
     <link href="content/css/contact.css" rel="stylesheet" />
@@ -42,83 +42,96 @@
             <div class="col-xs-12 col-xs-offset-0">
                 <div class="panel panel-default">
                     <div class="panel-heading">
-                        <h3 class="h3 text-center">Nowy post</h3>
+                        <h3 class="h3 text-center">Edycja</h3>
                     </div>
                     <div class="panel-body">
                         <div class="row">
                             <div class="panel panel-default col-xs-8 col-xs-offset-2">
                                 <div class="panel-heading">
-                                    <h3 class="h4">Tytuł</h3>
+                                    <h3 class="h4">Wybierz post</h3>
                                 </div>
                                 <div class="panel-body text-center">
                                     <div class="col-xs-12">
-                                        <div class="text-center">
-                                            <asp:TextBox CssClass="col-sm-10 col-sm-offset-1" ID="txtTitle" runat="server" required="required"></asp:TextBox>
-                                        </div>
+                                        <asp:DropDownList ID="ddlPostToEdit" CssClass="full-with col-xs-12 form-control" runat="server" AutoPostBack="True" OnSelectedIndexChanged="ddlPostToEdit_SelectedIndexChanged"></asp:DropDownList>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                        <div class="row">
+                        <div class="row" id="divDecide" runat="server" visible="false">
                             <div class="panel panel-default col-xs-8 col-xs-offset-2">
                                 <div class="panel-heading">
-                                    <h3 class="h4">Kategoria</h3>
+                                    <h3 class="h4">Czy chcesz usunąć post?</h3>
                                 </div>
                                 <div class="panel-body text-center">
-                                    <div class="col-xs-12">
-                                        <div class="text-center">
-
-                                            <asp:DropDownList CssClass="col-sm-6 col-sm-offset-3 text-center" ID="ddlCategory" runat="server" Style="left: 0px; top: 0px; color: black;">
-                                                <asp:ListItem Selected="True" Value="0">Recenzje produktów</asp:ListItem>
-                                                <asp:ListItem Value="1">Nancy style inspiracje</asp:ListItem>
-                                                <asp:ListItem Value="2">Pielęgnacje</asp:ListItem>
-                                                <asp:ListItem Value="3">Metamorfozy</asp:ListItem>
-                                                <asp:ListItem Value="4">Edukacja</asp:ListItem>
-                                            </asp:DropDownList>
-
-                                        </div>
+                                    <div class="col-xs-6">
+                                        <asp:Button ID="btnDelete" CssClass="form-control" runat="server" Text="Tak" OnClick="btnDelete_Click" />
+                                    </div>
+                                    <div class="col-xs-6">
+                                        <asp:Button ID="btnEdit" CssClass="form-control" runat="server" Text="Nie" OnClick="btnEdit_Click" />
                                     </div>
                                 </div>
                             </div>
                         </div>
-                        <div class="row">
+                        <div class="row" id="divDeleted" runat="server" visible="false">
                             <div class="panel panel-default col-xs-8 col-xs-offset-2">
                                 <div class="panel-heading">
-                                    <h3 class="h4">Zdjęcie</h3>
-                                </div>
-                                <div class="panel-body text-center">
-                                    <div class="col-xs-12">
-                                        <div class="text-center">
-                                            <asp:TextBox CssClass="col-sm-10 col-sm-offset-1" ID="txtImage" runat="server" required="required"></asp:TextBox>
-                                        </div>
-                                    </div>
+                                    <h3 class="h4">Usunięto!</h3>
                                 </div>
                             </div>
                         </div>
-                        <div class="row">
+                        <div class="row" id="titleEdit" runat="server" visible="false">
                             <div class="panel panel-default col-xs-8 col-xs-offset-2">
                                 <div class="panel-heading">
-                                    <h3 class="h4">Treść</h3>
+                                    <h3 class="h4">Nowy tytuł</h3>
                                 </div>
                                 <div class="panel-body text-center">
                                     <div class="col-xs-12">
-                                        <div class="text-center">
-                                            <asp:TextBox ID="txtBlogContent" runat="server" class="tinymce" Rows="40" TextMode="MultiLine" Columns="120" CssClass="tinymce" />
-                                        </div>
+                                        <asp:TextBox ID="txtTitleEdit" runat="server" CssClass="form-control" placeholder="Nowa nazwa posta"></asp:TextBox>
                                     </div>
                                 </div>
                             </div>
                         </div>
+                        <div class="row" id="imgEdit" runat="server" visible="false">
+                            <div class="panel panel-default col-xs-8 col-xs-offset-2">
+                                <div class="panel-heading">
+                                    <h3 class="h4">Nowe zdjęcie</h3>
+                                </div>
+                                <div class="panel-body text-center">
+                                    <div class="col-xs-12">
+                                        <asp:TextBox ID="txtImg" runat="server" CssClass="form-control" placeholder="http://adres.pl/nazwazdjecia.jpg"></asp:TextBox>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row" id="postEdit" runat="server" visible="false">
+                            <div class="panel panel-default col-xs-8 col-xs-offset-2">
+                                <div class="panel-heading">
+                                    <h3 class="h4">Nowa treść</h3>
+                                </div>
+                                <div class="panel-body text-center">
+                                    <div class="col-xs-12">
+                                        <asp:TextBox ID="txtPostEdit" runat="server" class="tinymce" Rows="40" TextMode="MultiLine" Columns="120" CssClass="tinymce"></asp:TextBox>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row" id="saveChanges" runat="server" visible="false">
                         <div class="panel panel-default col-xs-8 col-xs-offset-2">
                             <div class="panel-heading">
-                                <h3 class="h4">Zatwierdź</h3>
+                                <h3 class="h4">Zapisz zmiany</h3>
                             </div>
                             <div class="panel-body text-center">
                                 <div class="col-xs-12">
-                                    <div class="text-center">
-                                        <asp:Button CssClass="btn btn-default text-center col-sm-4 col-sm-offset-4" ID="btnSend" runat="server" Text="Wyślij" CausesValidation="False" OnClick="btnSend_Click" />
-                                    </div>
+                                    <asp:Button ID="btnSaveChanges" CssClass="btn btn-default" runat="server" Text="Zapisz" OnClick="btnSaveChanges_Click" />
                                 </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row" id="divEdited" runat="server" visible="false">
+                        <div class="panel panel-default col-xs-8 col-xs-offset-2">
+                            <div class="panel-heading">
+                                <h3 class="h4">Zapisano zmiany!</h3>
                             </div>
                         </div>
                     </div>

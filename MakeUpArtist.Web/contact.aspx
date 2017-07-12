@@ -25,7 +25,7 @@
                                     </div>
                                     <div class="col-xs-6">
                                         <div class="fa fa-envelope"></div>
-                                        <a href="mailto:info@makebynancy.com">info@makebynancy.com</a>
+                                        <a href="mailto:info@makebynancy.com">info@makebynancy.pl</a>
                                     </div>
                                 </div>
 
@@ -41,15 +41,15 @@
                                     <div class="form-horizontal col-md-8 col-md-offset-2">
                                         <div class="form-group">
                                             <label>Imię i nazwisko</label>
-                                            <input type="text" class="form-control" id="txtContactName" runat="server" placeholder="Podaj imię i nazwisko" />
+                                            <input type="text" class="form-control" id="txtContactName" runat="server" placeholder="Podaj imię i nazwisko" required />
                                         </div>
                                         <div class="form-group">
                                             <label>Email</label>
-                                            <input type="email" class="form-control" id="txtContactEmail" runat="server" placeholder="Podaj swój adres email" />
+                                            <input type="email" class="form-control" id="txtContactEmail" runat="server" placeholder="Podaj swój adres email" required />
                                         </div>
                                         <div class="form-group ">
                                             <label>Twoja wiadomość</label>
-                                            <textarea class="form-control"  id="txtContactMessage" runat="server"  placeholder="Wpisz treść wiadomości"></textarea>
+                                            <textarea class="form-control"  id="txtContactMessage" runat="server"  placeholder="Wpisz treść wiadomości" required></textarea>
                                         </div>
                                         <div class="text-center">
                                             <asp:Button ID="btnSend" CssClass="btn btn-default" runat="server" Text="Wyślij" OnClick="btnSend_Click" />
