@@ -1,4 +1,39 @@
-﻿@font-face {
+﻿html,
+body,
+div,
+h1,
+p,
+a,
+video {
+    margin: 0;
+    padding: 0;
+}
+html,
+body {
+    height: 100%;
+}
+.content {
+    position: relative;
+    z-index: 2;
+}
+
+.video {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    z-index: 1;
+    min-width: 100%;
+    min-height: 100%;
+    width: auto;
+    height: auto;
+    -webkit-transform: translate(-50%, -50%);
+    -ms-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+}
+
+
+
+@font-face {
     font-family: 'Comfortaa-Regular';
     src: url('../fonts/Comfortaa-Regular.ttf') format('truetype');
 }
@@ -69,40 +104,19 @@ body {
 }
 
 
-
-
-/*video*/
-.fullscreen-bg {
-    position: fixed;
-    top: 0;
-    right: 0;
-    bottom: 0;
-    left: 0;
-    overflow: hidden;
-    z-index: -100;
-}
-
-.fullscreen-bg__video {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    width: auto;
-    height: auto;
-    min-width: 100%;
-    min-height: 100%;
-    -webkit-transform: translate(-50%, -50%);
-    -moz-transform: translate(-50%, -50%);
-    -ms-transform: translate(-50%, -50%);
-    transform: translate(-50%, -50%);
-}
-
-@media (max-width: 767px) {
-    .fullscreen-bg {
-        background: url('../../img/bkg_photo.jpg') center center / cover no-repeat;
-    }
-
-    .fullscreen-bg__video {
+@media only screen and (min-device-width: 320px) and (max-device-width: 480px) and (-webkit-min-device-pixel-ratio: 2) {
+    video {
         display: none;
     }
+    body {
+        background: url('../../media/bkg.jpg') repeat;
+        background-size: cover;
+    }
 }
 
+@media (min-width: 1000px)
+{
+    .contact-align {
+        text-align: center !important;
+    }
+}

@@ -14,27 +14,27 @@
                 <div class="row">
                     <div class="col-xs-12 text-center">
                         <asp:LinkButton ID="lbInspiracje" runat="server" OnClick="lbInspiracje_Click">
-                            <div class="col-xs-12 col-md-2 col-md-offset-1 nav-blog-element">
+                            <div class="col-xs-2 col-xs-offset-1 nav-blog-element">
                                 Inspiracje
                             </div>
                         </asp:LinkButton>
                         <asp:LinkButton ID="lbPelegnacja" runat="server" OnClick="lbPelegnacja_Click">
-                            <div class="col-xs-12 col-md-2 nav-blog-element">
+                            <div class="col-xs-2 nav-blog-element">
                                 Pielęgnacje
                             </div>
                         </asp:LinkButton>
                         <asp:LinkButton ID="lbMetamorfozy" runat="server" OnClick="lbMetamorfozy_Click">
-                            <div class="col-xs-12 col-md-2 nav-blog-element">
+                            <div class="col-xs-2 nav-blog-element">
                                 Metamorfozy
                             </div>
                         </asp:LinkButton>
                         <asp:LinkButton ID="lbEdukacja" runat="server" OnClick="lbEdukacja_Click">
-                            <div class="col-xs-12 col-md-2 nav-blog-element">
+                            <div class="col-xs-2 nav-blog-element">
                                 Edukacja
                             </div>
                         </asp:LinkButton>
                         <asp:LinkButton ID="lbRecenzje" runat="server" OnClick="lbRecenzje_Click">
-                            <div class="col-xs-12 col-md-2 nav-blog-element">
+                            <div class="col-xs-2 nav-blog-element">
                                 Recenzje
                             </div>
                         </asp:LinkButton>

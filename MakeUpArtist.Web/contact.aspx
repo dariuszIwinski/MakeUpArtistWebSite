@@ -18,14 +18,14 @@
                                     <h3 class="h4"  style="text-align: left">Dane do kontaktu</h3>
                
                                 </div>
-                                <div class="panel-body text-center">
-                                    <div class="col-xs-6">
+                                <div class="panel-body">
+                                    <div class="col-xs-12 col-lg-6 contact-align">
                                         <div class="fa fa-phone-square"></div>
                                         <a href="tel:781874163">+48 781 874 163</a>
                                     </div>
-                                    <div class="col-xs-6">
+                                    <div class="col-xs-12 col-lg-6 contact-align">
                                         <div class="fa fa-envelope"></div>
-                                        <a href="mailto:info@makebynancy.com">info@makebynancy.pl</a>
+                                        <a href="mailto:makebynancy@gmail.com">makebynancy@gmail.com</a>
                                     </div>
                                 </div>
 
